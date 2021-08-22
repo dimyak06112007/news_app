@@ -23,6 +23,8 @@ class Article {
 
   factory Article.fromJson(Map<String, dynamic> json) {
     return Article(
+      // ToDo author: json['author']
+
       // source: Source.fromJson(json['source']),
       // author: json['author'] as String,
       title: json['title'] as String,
