@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/components/customListTile.dart';
 import 'package:news_app/models/article_model.dart';
 import 'package:news_app/services/api_service.dart';
 
@@ -25,13 +26,10 @@ class _HomePageState extends State<HomePage> {
             List<Article> articles = snapshot.data!;
             return ListView.builder(
               itemCount: articles.length,
-              itemBuilder: (context, index) => ListTile(
-                title: Text(articles[index].title),
+              itemBuilder: (context, index) => customListTile(
+                articles[index], context
               ),
             );
-            // return Center(
-            //   child: Text('Succes!'),
-            // );
           }
           print('in else. So snapshot is $snapshot');
           return Center(

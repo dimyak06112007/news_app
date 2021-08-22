@@ -19,7 +19,6 @@ class ApiService {
       print(articles);
       return articles;
     } else {
-      print("Can't get the Articles");
       throw ("Can't get the Articles");
     }
   }
