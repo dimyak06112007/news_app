@@ -25,12 +25,13 @@ class Article {
     return Article(
       source: Source.fromJson(json['source']),
       author: json['author'] == null ? '' : json['author'],
-      // author: authorNullCheck.toString(),
-      title: json['title'] as String,
-      description: json['description'] as String,
-      url: json['url'] as String,
-      urlToImage: json['urlToImage'] as String,
-      publishedAt: json['publishedAt'] as String,
+      title: json['title'] == null ? '' : json['title'],
+      description: json['description'] == null ? '' : json['description'],
+      url: json['url'] == null ? '' : json['url'],
+      urlToImage: json['urlToImage'] == null
+          ? 'https://www.lendacademy.com/wp-content/uploads/2015/05/Marketplace-Lending-News.jpg'
+          : json['urlToImage'],
+      publishedAt: json['publishedAt'] == null ? '' : json['publishedAt'],
       content: json['content'] == null ? '' : json['content'],
     );
   }

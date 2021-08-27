@@ -13,6 +13,8 @@ Widget customListTile(Article article, BuildContext context) {
       );
     },
     child: Container(
+      //todo if I will implement news in other apps, I have to add PageStorageKey() to save location when moving between screens.
+      // key: PageStorageKey(),
       margin: EdgeInsets.all(12.0),
       padding: EdgeInsets.all(8.0),
       decoration: BoxDecoration(
@@ -29,33 +31,38 @@ Widget customListTile(Article article, BuildContext context) {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            height: 200,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: NetworkImage(article.urlToImage),
-                fit: BoxFit.cover,
-              ),
-              borderRadius: BorderRadius.circular(12.0),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(9),
+            child: Image.network(
+              article.urlToImage,
+              key: UniqueKey(),
+              fit: BoxFit.cover,
+              width: double.infinity,
+              height: 200,
+              loadingBuilder: (BuildContext context, Widget child,
+                  ImageChunkEvent? loadingProgress) {
+                if (loadingProgress == null) return child;
+                return Center(
+                  child: Container(
+                    width: double.infinity,
+                    height: 200,
+                    child: CircularProgressIndicator(
+                      color: Colors.lightBlueAccent,
+                      value: loadingProgress.expectedTotalBytes != null
+                          ? loadingProgress.cumulativeBytesLoaded /
+                              loadingProgress.expectedTotalBytes!
+                          : null,
+                    ),
+                  ),
+                );
+              },
             ),
           ),
           SizedBox(
             height: 8.0,
           ),
-          Container(
-            padding: EdgeInsets.all(6.0),
-            // decoration: BoxDecoration(
-            //   color: Colors.red,
-            //   borderRadius: BorderRadius.circular(30.0),
-            // ),
-            child: Text(
-              article.source.name,
-              style: TextStyle(color: Colors.blue[100]),
-            ),
-          ),
           SizedBox(
-            height: 8.0,
+            height: 10.0,
           ),
           Text(
             article.title,
@@ -63,7 +70,7 @@ Widget customListTile(Article article, BuildContext context) {
               fontWeight: FontWeight.bold,
               fontSize: 16.0,
             ),
-          )
+          ),
         ],
       ),
     ),
